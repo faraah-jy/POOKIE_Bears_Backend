@@ -7,6 +7,7 @@ const verifyJWT = require('./middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const PORT = process.env.PORT || 3500;
+const mongoose = require("mongoose");
 
 
 // Handle options credentials check - before CORS!
@@ -32,7 +33,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 
-app.use(verifyJWT);
+// app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
 
 app.all('*', (req, res) => {
@@ -46,4 +47,9 @@ app.all('*', (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+mongoose.connect(process.env.DB_URL).then(()=>{
+    console.log("connected to database");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}).catch(err=>console.log(err));

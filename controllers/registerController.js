@@ -1,31 +1,43 @@
-const usersDB = {
-    users: require('../model/users.json'),
-    setUsers: function (data) { this.users = data }
-}
+const User = require("../model/user");
+
+
 const fsPromises = require('fs').promises;
 const path = require('path');
 const bcrypt = require('bcrypt');
 
 const handleNewUser = async (req, res) => {
-    const { user, pwd , fullName, phoneNumber, address, birthDate, profession, gender} = req.body;
-    if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.' });
-    // check for duplicate usernames in the db
-    const duplicate = usersDB.users.find(person => person.username === user);
-    if (duplicate) return res.sendStatus(409); //Conflict
-    try {
-        //encrypt the password
-        const hashedPwd = await bcrypt.hash(pwd, 10);
-        //store the new user
-        const newUser = { "username": user, "password": hashedPwd  , "fullName":fullName, "role": 'user', "phoneNumber":phoneNumber , "address": address, "birthDate":birthDate, "profession":profession, "gender":gender};
-        usersDB.setUsers([...usersDB.users, newUser]);
-        await fsPromises.writeFile(
-            path.join(__dirname, '..', 'model', 'users.json'),
-            JSON.stringify(usersDB.users)
-        );
-        console.log(usersDB.users);
-        res.status(201).json({ 'success': `New user ${user} created!` });
-    } catch (err) {
-        res.status(500).json({ 'message': err.message });
+    try{
+        const { email, pwd , fullName, phoneNumber, address, birthDate, profession, gender} = req.body;
+        if (!email || !pwd || !fullName|| !phoneNumber|| !address|| !birthDate|| !profession|| !gender ) return res.status(400).json({ 'message': 'You have not inserrted one input' });
+        // check for duplicate usernames in the db
+        const duplicateUser = await User.findOne({email : email})
+        //const duplicate = usersDB.users.find(person => person.username === user);
+        if (duplicateUser) return res.status(409).json({ 'message': 'User already exists.' }); //Conflict
+
+        try {
+            //encrypt the password
+            const hashedPwd = await bcrypt.hash(pwd, 10);
+            //store the new user
+            const newUserData = { 
+                "email": email, 
+                "password": hashedPwd  , 
+                "fullName":fullName, 
+                "role": 'user', 
+                "phoneNumber":phoneNumber , 
+                "address": address, 
+                "birthDate":birthDate, 
+                "profession":profession, 
+                "gender":gender};
+    
+            const newUser = await User.create(newUserData);
+    
+            res.status(201).json({ 'success': `New user ${newUserData.fullName} created!` });
+        } catch (err) {
+            res.status(500).json({ 'message': err.message });
+        }
+    
+    }catch(err){
+        console.log(err);
     }
 }
 

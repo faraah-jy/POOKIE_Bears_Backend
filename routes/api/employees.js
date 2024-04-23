@@ -1,16 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const employeesController = require('../../controllers/employeesController');
-const verifyRoles = require('../../middleware/roleschecker');
-const roles = require('../../config/roles');
+const express = require("express");
+const employeeRouter = express.Router();
+const employeesController = require("../../controllers/employeesController");
+const verifyRoles = require("../../middleware/roleschecker");
+const roles = require("../../config/roles");
+// employeeRouter.use(verifyRoles("admin"));
 
-router.route('/')
-    .get(verifyRoles("admin"), employeesController.getAllEmployees)
-    .post(verifyRoles("admin"), employeesController.createNewEmployee)
-    .put(verifyRoles("admin"), employeesController.updateEmployee)
-    .delete(verifyRoles("admin"), employeesController.deleteEmployee);
+employeeRouter.post("/createEmployee", employeesController.createNewEmployee);
 
-router.route('/:id')
-    .get(employeesController.getEmployee);
+employeeRouter.put("/updateEmployee/:id", employeesController.updateEmployee);
 
-module.exports = router;
+employeeRouter.delete("/deleteEmployee/:id", employeesController.deleteEmployee);
+
+employeeRouter.get("/getEmployee/:id", employeesController.getEmployee);
+
+
+
+module.exports = employeeRouter;
