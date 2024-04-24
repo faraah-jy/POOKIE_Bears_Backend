@@ -1,22 +1,12 @@
 const Employee = require("../model/employees");
 
-// const data = {
-//     employees: require('../model/employees.json'),
-//     setEmployees: function (data) { this.employees = data }
-// }
-
-//const getAllEmployees = (req, res) => {
-// const getAllEmployees = Employee
-//}
-
 const createNewEmployee = async (req, res) => {
   try {
-    const { fullName, experience, role, exceptionsDealtWith, description } =
+    const { fullName, experience, /*role,*/ exceptionsDealtWith, description } =
       req.body;
     if (
       !fullName ||
       !experience ||
-      !role ||
       !exceptionsDealtWith ||
       !description
     ) {
@@ -25,7 +15,7 @@ const createNewEmployee = async (req, res) => {
     const newEmployeeData = {
       fullName,
       experience,
-      role,
+      //role,
       exceptionsDealtWith,
       description,
     };
@@ -43,12 +33,12 @@ const updateEmployee = async (req, res) => {
     const id = req.params.id;
     const employee = await Employee.findById(id);
     const employeeData = {};
-    if (!employee) {
+    if (!employee ) {
       return res.status(400).json({ message: `Employee ID ${id} not found` });
     }
     if (req.body.fullName) employeeData.fullName = req.body.fullName||employee.fullName
     if (req.body.experience) employeeData.experience = req.body.experience||employee.experience
-    if (req.body.role) employeeData.role = employee.role
+    //if (req.body.role) employeeData.role = employee.role
     if (req.body.exceptionsDealtWith)
       employeeData.exceptionsDealtWith = req.body.excptionsDealtWith||employee.exceptionsDealtWith
     if (req.body.description) employeeData.description = req.body.description||employee.description
