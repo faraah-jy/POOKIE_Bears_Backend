@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     required:true,
   },
   password:{
-    //type:mongoose.Schema.Types. if i wanna know what types exist out there
+    //type:mongoose.Schema.Types. //if i wanna know what types exist out there
     type : String,
     required:true,
   },
@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   role:{
     type : String,
     required:false,
+    default:"user",
   },
   phoneNumber:{
     type : Number,
@@ -37,6 +38,10 @@ const userSchema = new mongoose.Schema({
   gender:{
     type : String,
     required:true,
+  },
+  persentChild:{
+    type : Boolean,
+    required:false,
   },
 });
 

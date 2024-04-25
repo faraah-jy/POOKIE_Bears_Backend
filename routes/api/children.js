@@ -5,17 +5,45 @@ const childController = require("../../controllers/childController");
 const roles = require("../../config/roles");
 
 
+childRouter.route('/')
+    .get(childController.getAllChildren)
+    .post(childController.createNewChild)
+    
+
+childRouter.route('/:id')
+    .get(childController.getChild)
+    .put(childController.updateChild)
+    .delete(childController.deleteChild);
 
 
-childRouter.post("/createNewChild", childController.createNewChild);
+// childRouter.post(
+// 	"/createNewChild",
+// 	verifyRoles("admin"),
+// 	childController.createNewChild
+// );
 
-childRouter.put("/updateChild/:id", childController.updateChild);
+// childRouter.put(
+// 	"/updateChild/:id",
+// 	verifyRoles("admin"),
+// 	childController.updateChild
+// );
 
-childRouter.delete("/deleteChild/:id", childController.deleteChild);
+// childRouter.delete(
+// 	"/deleteChild/:id",
+// 	verifyRoles("admin"),
+// 	childController.deleteChild
+// );
 
-childRouter.get("/getChild/:id", childController.getChild);
+// childRouter.get(
+// 	"/getChild/:id",
+// 	verifyRoles("admin"),
+// 	childController.getChild
+// );
 
-
-
+// childRouter.get(
+// 	"/getChildren",
+// 	verifyRoles("admin"),
+// 	childController.getChildren
+// );
 
 module.exports = childRouter;

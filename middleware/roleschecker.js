@@ -1,11 +1,9 @@
 
 function verifyRoles(...roles) {
 	return (req, res, next) => {
-		let userRoles = req.roles;
-        for(const role of roles){
-            if(userRoles && userRoles.includes(role)){
-                return next();
-            }
+		userRole = req.user.roles;
+        if (roles.includes(userRole)) {
+            return next();
         }
         return res.sendStatus(403);
 	};

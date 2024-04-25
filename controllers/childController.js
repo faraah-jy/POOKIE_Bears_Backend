@@ -1,23 +1,30 @@
 const Child = require("../model/child");
 
+const getAllChildren = async (req, res) => {
+  try {
+      const children = await Child.find();
+      return res.status(200).json({ msg: "all children", data: children });
+  } catch (err) {
+      console.log(err);
+  }
+  };
+
+
 const createNewChild = async (req, res) => {
   try {
-    const { fullName ,gender /*,role*/, age, dateOfBirth, adress, siblings, disabilities,  allergies, illnesses, languageSpokenAtHome , hobies, other, emergencieFullName,  emergenciePhoneNumber, emergencieRelationToTheChild } =
+    const { fullName ,gender /*,role*/, age, dateOfBirth, adress, siblings, disabilities,  allergies, illnesses, languageSpokenAtHome , hobies, other, emergencieFullName,  emergenciePhoneNumber, emergencieRelationToTheChild ,pic} =
       req.body;
     if (
       !fullName ||
       !gender ||
-
-      //!role ||
       !age ||
-      !dateOfBirth || !adress || !siblings || !disabilities || !allergies || !illnesses || !languageSpokenAtHome || !hobies || !other || !emergencieFullName || !emergenciePhoneNumber || !emergencieRelationToTheChild
+      !dateOfBirth || !adress || !siblings || !disabilities || !allergies || !illnesses || !languageSpokenAtHome || !hobies || !other || !emergencieFullName || !emergenciePhoneNumber || !emergencieRelationToTheChild || !pic
     ) {
       return res.status(400).json({ msg: "Missing required fields" });
     }
     const newChildData = {
       fullName,
       gender,
-      //role ,
       age,
       dateOfBirth, 
       adress,
@@ -31,6 +38,7 @@ const createNewChild = async (req, res) => {
       emergencieFullName,
       emergenciePhoneNumber,
       emergencieRelationToTheChild,
+      pic,
     };
     const newChild = await Child.create(newChildData);
     return res
@@ -63,6 +71,7 @@ const updateChild = async (req, res) => {
     if (req.body.emergencieFullName) childData.emergencieFullName = req.body.emergencieFullName||child.emergencieFullName
     if (req.body.emergenciePhoneNumber) childData.emergenciePhoneNumber = req.body.emergenciePhoneNumber||child.emergenciePhoneNumber
     if (req.body.emergencieRelationToTheChild) childData.emergencieRelationToTheChild = req.body.emergencieRelationToTheChild||child.emergencieRelationToTheChild
+    if (req.body.pic) childData.pic = req.body.pic|| child.pic
 
 
     const updatedChild = await Child.findByIdAndUpdate(
@@ -95,7 +104,7 @@ const deleteChild = async (req, res) => {
 
 const getChild = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id;
     const child = await Child.findById(id);
     if (!child) {
       return res.status(404).json({ msg: "this child doesn't exist" });
@@ -106,9 +115,20 @@ const getChild = async (req, res) => {
   }
 };
 
+const getChildren = async (req, res) => {
+  try {
+    const children = await Child.find();
+    return res.status(200).json({ msg: "children found!", data: children });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
+  getAllChildren,
   createNewChild,
   updateChild,
   deleteChild,
   getChild,
+  getChildren,
 };

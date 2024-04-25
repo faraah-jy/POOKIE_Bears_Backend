@@ -1,8 +1,18 @@
 const Employee = require("../model/employees");
 
+const getAllEmployees = async (req, res) => {
+    try {
+        const employees = await Employee.find();
+        return res.status(200).json({ msg: "all employees", data: employees });
+    } catch (err) {
+        console.log(err);
+    }
+    };
+
+
 const createNewEmployee = async (req, res) => {
   try {
-    const { fullName, experience, /*role,*/ exceptionsDealtWith, description } =
+    const { fullName, experience,  exceptionsDealtWith, description } =
       req.body;
     if (
       !fullName ||
@@ -15,7 +25,6 @@ const createNewEmployee = async (req, res) => {
     const newEmployeeData = {
       fullName,
       experience,
-      //role,
       exceptionsDealtWith,
       description,
     };
@@ -38,7 +47,6 @@ const updateEmployee = async (req, res) => {
     }
     if (req.body.fullName) employeeData.fullName = req.body.fullName||employee.fullName
     if (req.body.experience) employeeData.experience = req.body.experience||employee.experience
-    //if (req.body.role) employeeData.role = employee.role
     if (req.body.exceptionsDealtWith)
       employeeData.exceptionsDealtWith = req.body.excptionsDealtWith||employee.exceptionsDealtWith
     if (req.body.description) employeeData.description = req.body.description||employee.description
@@ -60,6 +68,7 @@ const updateEmployee = async (req, res) => {
   }
 };
 
+
 const deleteEmployee = async (req, res) => {
   try {
     const id = req.params.id;
@@ -74,7 +83,7 @@ const deleteEmployee = async (req, res) => {
 
 const getEmployee = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id;
     const employee = await Employee.findById(id);
     if (!employee) {
       return res.status(404).json({ msg: "this employee doesn't exist" });
@@ -87,7 +96,7 @@ const getEmployee = async (req, res) => {
 };
 
 module.exports = {
-  //getAllEmployees,
+  getAllEmployees,
   createNewEmployee,
   updateEmployee,
   deleteEmployee,

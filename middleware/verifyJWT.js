@@ -3,20 +3,18 @@ require('dotenv').config();
 
 
 const verifyJWT = (req, res, next) => {
-    const token = req.cookies['authorization'];
-    if (!authHeader) return res.sendStatus(401);
-
-    jwt.verify(
-        token,
-        process.env.ACCESS_TOKEN_SECRET,
-        (err, decoded) => {
-            if (err) return res.sendStatus(403); //invalid token
-            req.user = decoded.username;
-            console.log(decoded.roles);
-            req.roles = decoded.roles;
-            next();
-        }
-    );
+    const token = req.cookies["jwt"];
+    console.log(token);
+    if (!token) {
+        return res.status(401).send("Access denied");
+    }
+    try {
+        const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        req.user = verified;
+        next();
+    } catch (err) {
+        res.status(400).send("Invalid token");
+    }
 }
 
 module.exports = verifyJWT

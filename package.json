@@ -1,14 +1,14 @@
 {
-  "name": "11tut",
+  "name": "PookieBEARS",
   "version": "1.0.0",
-  "description": "Express tutorial",
+  "description": "express tutorial",
   "main": "server.js",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
   },
-  "author": "Dave Gray",
-  "license": "ISC",
+  "author": "Farah cat's",
+  "license": "isc",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
@@ -22,7 +22,7 @@
     "prisma": "^5.10.2",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {
+  "devdependencies": {
     "nodemon": "^2.0.12"
   }
 }

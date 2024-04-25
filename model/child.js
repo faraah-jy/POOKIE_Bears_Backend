@@ -61,6 +61,10 @@ const childSchema = new mongoose.Schema({
   emergencieRelationToTheChild:{
     type : String,
     required:true,
+  },
+  pic:{
+    type : String,
+    required:true,
   }
 });
 
