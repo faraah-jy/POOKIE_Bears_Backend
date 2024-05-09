@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema({
   },
   persentChild:{
     type : Boolean,
-    required:false,
+    required:true,
+    default : false
   },
 });
 

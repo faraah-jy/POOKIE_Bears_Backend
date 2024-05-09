@@ -38,6 +38,7 @@ app.use(verifyJWT);
 
 app.use("/employees", require("./routes/api/employees"));
 app.use('/child', require('./routes/api/children'));
+app.use('/notif', require('./routes/api/notif'));
 
 app.all("*", (req, res) => {
 	res.status(404);

@@ -10,10 +10,11 @@ const handleLogin = async (req, res) => {
     if(!foundUser) return res.status(401).json({ 'message': 'User not found.' });
     // evaluate password 
     const match = await bcrypt.compare(pwd, foundUser.password);
+    
     if (match) {
         // create JWTs
         const accessToken = jwt.sign(
-            { "email": foundUser.email , "roles": foundUser.role},
+            { "email": foundUser.email ,"userId":foundUser._id, "roles": foundUser.role},
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '1d' }
         );

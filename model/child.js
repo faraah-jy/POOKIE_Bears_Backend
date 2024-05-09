@@ -65,6 +65,11 @@ const childSchema = new mongoose.Schema({
   pic:{
     type : String,
     required:true,
+  },
+  parentId:{
+    type : String,
+    required:true,
+    
   }
 });
 
