@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     type : String,
     required:true,
   },
-  persentChild:{
+  presentChild:{
     type : Boolean,
     required:true,
     default : false

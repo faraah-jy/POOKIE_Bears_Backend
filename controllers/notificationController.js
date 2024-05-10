@@ -11,7 +11,7 @@ const sendNotif = async (req, res) => {
       return res.status(400).json({ msg: "Missing message" });
     }
 
-    const users = await User.find({ persentChild: true });
+    const users = await User.find({ presentChild: true });
     if (users.length === 0) {
       return res.status(404).json({ msg: "No users with presentChild found" });
     }

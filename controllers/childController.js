@@ -175,11 +175,11 @@ const setPresence = async (req, res) => {
   console.log(child)
   const parent = await User.findById(child.parentId);
   console.log(parent);
-  parent.persentChild = !parent.persentChild;
+  parent.presentChild = !parent.presentChild;
   await parent.save();
   return res
     .status(200)
-    .json({ msg: "child's presence is set !", data: parent.persentChild });
+    .json({ msg: "child's presence is set !", data: parent.presentChild });
 };
 
 module.exports = {
