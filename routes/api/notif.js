@@ -4,7 +4,10 @@ const notifController = require('../../controllers/notificationController');
 const verifyRoles = require('../../middleware/roleschecker');
 const roles = require('../../config/roles');
 
-notifRouter.post("/" , verifyRoles("admin") , notifController.sendNotif)
+notifRouter.post("/presentChildren" , verifyRoles("admin") , notifController.sendNotifPresent)
+
+notifRouter.post("/absentChildren" , verifyRoles("admin") , notifController.sendNotifAbsent)
+
 notifRouter.get("/" , verifyRoles("user") , notifController.getNotif)
 
 

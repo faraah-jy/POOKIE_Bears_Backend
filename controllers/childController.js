@@ -166,20 +166,20 @@ const getChild = async (req, res) => {
 // };
 
 const setPresence = async (req, res) => {
-  console.log("test")
+  // console.log("test")
   const id = req.params.id;
 
   
 
   const child = await Child.findById(id);
-  console.log(child)
+  // console.log(child)
   const parent = await User.findById(child.parentId);
-  console.log(parent);
-  parent.presentChild = !parent.presentChild;
+  // console.log(parent);
+  parent.persentChild = !parent.persentChild;
   await parent.save();
   return res
     .status(200)
-    .json({ msg: "child's presence is set !", data: parent.presentChild });
+    .json({ msg: "child's presence is set !", data: parent.persentChild });
 };
 
 module.exports = {

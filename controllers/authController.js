@@ -12,15 +12,19 @@ const handleLogin = async (req, res) => {
     const match = await bcrypt.compare(pwd, foundUser.password);
     
     if (match) {
+        if (foundUser.registerAuth){
         // create JWTs
         const accessToken = jwt.sign(
             { "email": foundUser.email ,"userId":foundUser._id, "roles": foundUser.role},
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
+            res.cookie('jwt', accessToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+            res.json({ accessToken });    
+        } else {
+            res.status(201).json({'message': `Sorry ${foundUser.fullName},your account creation hasn't been accepted yet, please check later on` });
+        }
         
-        res.cookie('jwt', accessToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.json({ accessToken });
     } else {
         res.sendStatus(401);
     }

@@ -36,6 +36,8 @@ app.use("/auth", require("./routes/auth"));
 app.use("/logout", require("./routes/logout"));
 app.use(verifyJWT);
 
+app.use("/registerRequest", require("./routes/api/registerRequest"));
+
 app.use("/employees", require("./routes/api/employees"));
 app.use('/child', require('./routes/api/children'));
 app.use('/notif', require('./routes/api/notif'));

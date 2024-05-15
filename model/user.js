@@ -39,7 +39,12 @@ const userSchema = new mongoose.Schema({
     type : String,
     required:true,
   },
-  presentChild:{
+  persentChild:{
+    type : Boolean,
+    required:true,
+    default : false
+  },
+  registerAuth:{
     type : Boolean,
     required:true,
     default : false

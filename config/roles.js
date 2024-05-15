@@ -1,3 +1,3 @@
-const ROLES = ["admin","user","editor"];
+const ROLES = ["admin","user"];
 
 module.exports = ROLES;
