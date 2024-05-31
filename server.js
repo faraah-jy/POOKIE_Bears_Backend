@@ -7,8 +7,10 @@ const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
 const credentials = require("./middleware/credentials");
 require("dotenv").config();
+const xss = require("xss-clean");
 const PORT = process.env.PORT || 3500;
 const mongoose = require("mongoose");
+
 
 // custom middleware logger
 
@@ -27,7 +29,7 @@ app.use(express.json());
 
 //middleware for cookies
 app.use(cookieParser());
-
+app.use(xss());
 // routes
 app.use("/", require("./routes/root"));
 

@@ -14,7 +14,7 @@ const createNewChild = async (req, res) => {
   try {
     const {
       fullName,
-      gender /*,role*/,
+      gender ,
       age,
       dateOfBirth,
       adress,

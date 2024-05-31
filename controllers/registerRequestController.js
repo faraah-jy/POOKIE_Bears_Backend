@@ -2,7 +2,6 @@ const User = require("../model/user")
 
 const getRegisterReq = async (req, res) => {
   try {
-    console.log("uyguytu")
     const newUsers = await User.find({ registerAuth: false });
     console.log(newUsers)
     
