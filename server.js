@@ -55,7 +55,7 @@ app.all("*", (req, res) => {
 	}
 });
 
-mongoose.connect(process.env.DB_URL).then(()=>{
+mongoose.connect(process.env.DB_URL).then(()=>{//then specifies what should happen the connection to the edata base is sucsessfull
     console.log("connected to database");
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }).catch(err=>console.log(err));
