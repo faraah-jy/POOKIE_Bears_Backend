@@ -17,7 +17,13 @@ const employeesSchema = new mongoose.Schema({
   description:{
     type : String,
     required:true,
+  },
+  rating:{
+    type : Number,
+    required: false,
+    default : 0
   }
+
 });
 
 const Employee = mongoose.model("employee",employeesSchema);
