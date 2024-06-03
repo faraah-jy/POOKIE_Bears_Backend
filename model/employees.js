@@ -10,6 +10,10 @@ const employeesSchema = new mongoose.Schema({
     type : Number,
     required:true,
   },
+  profession:{
+    type:String,
+    required:true,
+  },
   exceptionsDealtWith:{
     type : String,
     required:true,

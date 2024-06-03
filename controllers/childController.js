@@ -182,6 +182,40 @@ const setPresence = async (req, res) => {
     .json({ msg: "child's presence is set !", data: parent.persentChild });
 };
 
+
+const getYourKid = async (req, res) => {
+  try {
+    const userId = req.user?.userId;
+    console.log(userId);
+    const children = await Child.find({ parentId: userId });
+    console.log(children);
+
+
+    // const children = await Child.find({ [parentId]: { $exists: true } });
+    // const user = await User.findByIdAndDelete(userId);
+
+
+
+    if (!children || children.length === 0) {
+      return res
+        .status(404)
+        .json({ msg: "No kids for this parent." });
+    }
+
+    return res.status(200).json({ children });
+    
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: "Internal server error." });
+  }
+};
+
+
+
+
+
+
+
 module.exports = {
   getAllChildren,
   createNewChild,
@@ -190,4 +224,5 @@ module.exports = {
   getChild,
   //getChildren,
   setPresence,
+  getYourKid
 };

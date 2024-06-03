@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require("../model/user");
 require('dotenv').config();
+const Stat = require("../model/stat");
 
 const handleLogin = async (req, res) => {
     const { email, pwd } = req.body;
@@ -20,7 +21,18 @@ const handleLogin = async (req, res) => {
             { expiresIn: '1d' }
         );
             res.cookie('jwt', accessToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
-            res.json({ accessToken });    
+            
+            
+
+
+            // const stat = await Stat.findOne({});
+            // stat.loggedVisitor = stat.loggedVisitor += 1;
+            // const finalStat = await Stat.findByIdAndUpdate(stat.id, stat);
+
+            res.json({ accessToken }); 
+
+
+        
         } else {
             res.status(201).json({'message': `Sorry ${foundUser.fullName},your account creation hasn't been accepted yet, please check later on` });
         }

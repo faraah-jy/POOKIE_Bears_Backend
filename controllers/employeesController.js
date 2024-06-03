@@ -12,19 +12,21 @@ const getAllEmployees = async (req, res) => {
 
 const createNewEmployee = async (req, res) => {
   try {
-    const { fullName, experience,  exceptionsDealtWith, description } =
+    const { fullName, experience, profession,  exceptionsDealtWith, description } =
       req.body;
     if (
       !fullName ||
       !experience ||
+      !profession||
       !exceptionsDealtWith ||
-      !description
+      !description 
     ) {
       return res.status(400).json({ msg: "Missing required fields" });
     }
     const newEmployeeData = {
       fullName,
       experience,
+      profession,
       exceptionsDealtWith,
       description,
     };
@@ -47,6 +49,7 @@ const updateEmployee = async (req, res) => {
     }
     if (req.body.fullName) employeeData.fullName = req.body.fullName||employee.fullName
     if (req.body.experience) employeeData.experience = req.body.experience||employee.experience
+    if (req.body.profession) employeeData.profession = req.body.profession||employee.profession
     if (req.body.exceptionsDealtWith)
       employeeData.exceptionsDealtWith = req.body.excptionsDealtWith||employee.exceptionsDealtWith
     if (req.body.description) employeeData.description = req.body.description||employee.description
