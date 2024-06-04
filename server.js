@@ -38,6 +38,9 @@ app.use("/auth", require("./routes/auth"));
 app.use("/logout", require("./routes/logout"));
 app.use(verifyJWT);
 
+
+app.use("/parentInfo", require("./routes/parentInfo"));
+
 app.use("/registerRequest", require("./routes/api/registerRequest"));
 
 app.use("/employees", require("./routes/api/employees"));
