@@ -39,6 +39,30 @@ const getAllUsers = async (req, res) => {
   };
 
 
+  const deleteReq = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const UserToDel = await User.findById(id);
+
+
+      if (UserToDel == null){
+        return res.status(200).json({ msg: "User already deleted" });
+
+      }
+
+      if (UserToDel.registerAuth == true){
+        return res.status(200).json({ msg: "User is already accepted"});
+      }
+
+
+      const deletedUserReq = await User.findByIdAndDelete(id);
+      return res.status(200).json({ msg: "User's Request deleted!", data: deletedUserReq });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+
 
 
 
@@ -47,7 +71,8 @@ const getAllUsers = async (req, res) => {
 module.exports = {
   getRegisterReq,
   acceptUser,
-  getAllUsers
+  getAllUsers,
+  deleteReq
 }
 
 

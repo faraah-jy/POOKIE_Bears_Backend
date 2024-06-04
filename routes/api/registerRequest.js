@@ -12,5 +12,8 @@ reqRouter.route("/acceptUser/:id")
   .all(verifyRoles("admin"))
   .put(registerRequestController.acceptUser);
 
+reqRouter.delete("/delReq/:id" , verifyRoles("admin") , registerRequestController.deleteReq);
+
+
 
 module.exports = reqRouter;
