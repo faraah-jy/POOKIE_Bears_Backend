@@ -20,7 +20,7 @@ const statSchema = new mongoose.Schema({
   },
   createdAt:{
     type:Date,
-    default: false
+    default: Date.now
   }
 
 

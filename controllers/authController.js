@@ -25,9 +25,9 @@ const handleLogin = async (req, res) => {
             
 
 
-            // const stat = await Stat.findOne({});
-            // stat.loggedVisitor = stat.loggedVisitor += 1;
-            // const finalStat = await Stat.findByIdAndUpdate(stat.id, stat);
+            const stat = await Stat.findOne({});
+            stat.loggedVisitor += 1;
+            const finalStat = await Stat.findByIdAndUpdate(stat.id, stat);
 
             res.json({ accessToken }); 
 
